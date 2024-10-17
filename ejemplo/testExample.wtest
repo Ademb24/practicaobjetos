@@ -1,0 +1,33 @@
+import example.*
+
+describe "tests de personas y enfermedades" {
+  const malaria500 = new EnfermedadInfecciosa(celulasAmenazadas = 500)
+  const otitis100 = new EnfermedadInfecciosa(celulasAmenazadas = 100)
+  const lupus10000 = new EnfermedadAutoinmune(celulasAmenazadas = 10000)
+  const malaria800 = new EnfermedadInfecciosa(celulasAmenazadas = 800)
+
+  const logan = new Persona(temperatura = 36, celulas = 3000000)
+  const frank = new Persona(temperatura = 36, celulas = 3500000)
+
+  method initialize(){
+    logan.contraerEnfermedad(malaria500)
+    logan.contraerEnfermedad(otitis100)
+    logan.contraerEnfermedad(lupus10000)
+    frank.contraerEnfermedad(malaria800)
+  }
+
+  test "1. frank contrae una enfermedad"{
+    assert.that(frank.tiene(malaria800))
+  }
+
+  test "2.la malaria se reproduce y afecta al doble de celulas"{
+    malaria500.reproducirse()
+    assert.equals(1000, malaria500.celulasAmenazadas())
+  }
+
+  test "logan vive un dia de su vida y no hay celulas afectadas por enfermedades agresivas" {
+    logan.vivir(1)
+    assert.equals(0, logan.cantidadCelulasAfectadasPorEnfermedadesAgresivas())
+  }
+
+}
